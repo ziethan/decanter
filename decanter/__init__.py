@@ -24,41 +24,29 @@ subparsers = parser.add_subparsers(title='subcommands', help='Select an operatio
 parse_install = subparsers.add_parser('install', help='Install a component')
 install_group = parse_install.add_argument_group('install packages')
 install_group.set_defaults(func=Install)
-install_group.add_argument('package', help='Name of the package you would like to install')
+install_group.add_argument('-p', '--package', help='Name of the package you would like to install')
 install_group.add_argument('-v', '--version', help='Package version (default=latest)')
+install_group.add_argument('-f', '--package-file', help='Package file path (default=current working directory)')
 
 parse_register = subparsers.add_parser('register', help='Sign up for read/write access to the Decanter registry')
 register_group = parse_register.add_argument_group('register')
 register_group.set_defaults(func=Register)
-register_group.add_argument('email', help='Email address of the account')
 register_group.add_argument('-c', '--company', help='Company name helps with official package verification')
 
 parse_add = subparsers.add_parser('add', help='Add a component to the Decanter registry')
 add_group = parse_add.add_argument_group('add')
 add_group.set_defaults(func=Add)
-add_group.add_argument('email', help='Email address associated with your account')
 add_group.add_argument('package', help='Name of the package you would like to install')
 add_group.add_argument('source', help='The url of the package. Must point to tarball')
 add_group.add_argument('-v', '--version', help='Package version (default=latest)')
-# add_group.add_argument('-o', '--official', help='Use if you are the package\'s creator')
+# add_group.add_argument('-o', '--official', help='Use if you are the package official creator')
 
 parse_remove = subparsers.add_parser('remove', help="Remove a component from the Decanter registry")
 remove_group = parse_remove.add_argument_group('remove')
 remove_group.set_defaults(func=Remove)
-remove_group.add_argument('email', help='Email address associated with your account')
 remove_group.add_argument('package', help='Name of the package you would like to install')
 remove_group.add_argument('-v', '--version', help='Package version (default=latest)')
 
 def main():
-    if sys.argv.__len__() == 1:
-        InstallFromFile()
-    elif sys.argv[1] in commands:
-        args = parser.parse_args()
-        args.func(**vars(args))
-    elif sys.argv[1] == '-p' or sys.argv[1] == '--path':
-        if sys.argv.__len__() < 3:
-            print('Invalid path')
-        else:
-            InstallFromFile(path=sys.argv[2])
-    else:
-        print('Invalid command')
+    args = parser.parse_args()
+    args.func(**vars(args))

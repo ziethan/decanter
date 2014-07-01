@@ -7,8 +7,9 @@ import getpass
 from decanter import config
 
 
-def Add(email, package, source, **kwargs):
-    password = getpass.getpass('Password:')
+def Add(package, source, **kwargs):
+    email = raw_input('Email: ')
+    password = getpass.getpass('Password: ')
     print('Adding package {0} to registry'.format(package, kwargs.get('version')))
     
     if kwargs.get('version') is None:

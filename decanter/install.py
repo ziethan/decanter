@@ -24,11 +24,11 @@ def InstallFromFile(**kwargs):
     
     try:
         f = open(result, 'r')
-    except IOError:
+    except TypeError, IOError:
         f = None
 
     if f is None:
-        print('Error reading package file')
+        print('No package file provided')
         return False
 
     if result.endswith('.json'):
@@ -58,7 +58,7 @@ def InstallFromFile(**kwargs):
 
 def Install(**kwargs):
     if kwargs.get('package') is None:
-        raise Exception('A package must be provided.')
+        InstallFromFile(**kwargs)
         return False
     if kwargs.get('version') is None:
         Warning('Using latest version.')

@@ -7,7 +7,8 @@ import getpass
 from decanter import config
 
 
-def Remove(email, package, **kwargs):
+def Remove(package, **kwargs):
+    email = raw_input('Email: ')
     password = getpass.getpass('Password:')
     print('Removing package {0} from registry'.format(package))
     

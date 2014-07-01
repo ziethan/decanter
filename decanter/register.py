@@ -7,7 +7,8 @@ import getpass
 from decanter import config
 
 
-def Register(email, **kwargs):
+def Register(**kwargs):
+    email = raw_input('Email: ')
     password = getpass.getpass('Password:')
     confirm_password = getpass.getpass('Confirm:')
     
